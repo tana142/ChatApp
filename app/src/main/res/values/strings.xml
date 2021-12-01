@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ChatApp</string>
+    <string name="message">Tin nhắn</string>
+
+    <string name="find_message">Tìm kiếm tin nhắn</string>
+    <string name="friend">Bạn bè</string>
+    <string name="personal">Trang cá nhân</string>
+    <string name="create_message">Tạo tin nhắn</string>
+    <string name="cancel">Hủy</string>
+</resources>
