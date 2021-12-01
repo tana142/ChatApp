@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rikkei.training.activity.chatapp.R
+import com.rikkei.training.activity.chatapp.view.fragment.login.LoginFragment
 
 class EditProfileFragment : Fragment() {
 
@@ -18,6 +19,6 @@ class EditProfileFragment : Fragment() {
     }
 
     companion object {
-
+        fun Instance() = EditProfileFragment()
     }
 }

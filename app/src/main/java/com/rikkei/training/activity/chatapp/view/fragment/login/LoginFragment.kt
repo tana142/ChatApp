@@ -19,6 +19,6 @@ class LoginFragment : Fragment() {
     }
 
     companion object {
-
+        fun Instance() = LoginFragment()
     }
 }

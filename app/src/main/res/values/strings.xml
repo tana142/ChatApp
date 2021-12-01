@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">ChatApp</string>
     <string name="message">Tin nhắn</string>
-
+    <string name="app_name_sub1">Awesome\t</string>
+    <string name="app_name_sub2">chat</string>
     <string name="find_message">Tìm kiếm tin nhắn</string>
     <string name="friend">Bạn bè</string>
     <string name="personal">Trang cá nhân</string>

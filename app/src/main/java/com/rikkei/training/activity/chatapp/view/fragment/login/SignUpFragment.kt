@@ -18,6 +18,6 @@ class SignUpFragment : Fragment() {
     }
 
     companion object {
-
+        fun Instance() = SignUpFragment()
     }
 }
