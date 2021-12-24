@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rikkei.training.activity.chatapp.R
+import com.rikkei.training.activity.chatapp.view.MainInterface
 
-class EditProfileFragment : Fragment() {
+class EditProfileFragment(private val mainInterface: MainInterface) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,6 +19,6 @@ class EditProfileFragment : Fragment() {
     }
 
     companion object {
-
+        fun Instance(mainInterface: MainInterface) = EditProfileFragment(mainInterface)
     }
 }
