@@ -9,6 +9,8 @@
     <string name="logout">Đăng xuất</string>
     <string name="notify">Thông báo</string>
     <string name="version">Phiên bản ứng dụng</string>
+    //message
+    <string name="result_search_message">Không tìm thấy kết quả phù hợp</string>
     //
     <string name="find_message">Tìm kiếm tin nhắn</string>
     <string name="friend">Bạn bè</string>
