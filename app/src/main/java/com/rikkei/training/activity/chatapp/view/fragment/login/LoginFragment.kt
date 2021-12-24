@@ -6,19 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rikkei.training.activity.chatapp.R
+import com.rikkei.training.activity.chatapp.databinding.FragmentLoginBinding
+import com.rikkei.training.activity.chatapp.view.MainInterface
 
-class LoginFragment : Fragment() {
+class LoginFragment(private val mainInterface: MainInterface) : Fragment() {
 
-
+    private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainInterface.hideNavigation()
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return binding.root
     }
 
     companion object {
-
+        fun Instance(mainInterface: MainInterface) = LoginFragment(mainInterface)
     }
 }

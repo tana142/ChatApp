@@ -44,6 +44,26 @@ class MainActivity : AppCompatActivity(), MainInterface {
             replace(R.id.container_view, SplashFragment.Instance(this@MainActivity))
         }
 
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.getItemId()) {
+                R.id.item_messages -> {
+                    supportFragmentManager.commit {
+                        replace(R.id.container_view, MessageFragment.Instance(this@MainActivity))
+                    }
+                }
+                R.id.item_friends -> {
+                    supportFragmentManager.commit {
+                        replace(R.id.container_view, FriendFragment.Instance(this@MainActivity))
+                    }
+                }
+                R.id.item_personal -> {
+                    supportFragmentManager.commit {
+                        replace(R.id.container_view, ProfileFragment.Instance(this@MainActivity))
+                    }
+                }
+            }
+            true
+        }
 
 
     }
