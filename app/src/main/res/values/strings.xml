@@ -9,6 +9,11 @@
     <string name="logout">Đăng xuất</string>
     <string name="notify">Thông báo</string>
     <string name="version">Phiên bản ứng dụng</string>
+    <string name="edit_infomation">Chỉnh sửa thông tin</string>
+    <string name="save">Lưu</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="birthday">Ngày sinh</string>
     //message
     <string name="result_search_message">Không tìm thấy kết quả phù hợp</string>
     //
