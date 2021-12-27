@@ -7,23 +7,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rikkei.training.activity.chatapp.R
-import com.rikkei.training.activity.chatapp.data.model.Message
+import com.rikkei.training.activity.chatapp.data.model.ContentMessage
 import com.rikkei.training.activity.chatapp.databinding.ItemDetailMessageBinding
 
-class DetailMessageAdapter: ListAdapter<Message, DetailMessageAdapter.DetailMessageHolder>(DetailMessageDiffUtil()) {
-    class DetailMessageDiffUtil: DiffUtil.ItemCallback<Message>() {
-        override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
+class DetailMessageAdapter: ListAdapter<ContentMessage, DetailMessageAdapter.DetailMessageHolder>(DetailMessageDiffUtil()) {
+    class DetailMessageDiffUtil: DiffUtil.ItemCallback<ContentMessage>() {
+        override fun areItemsTheSame(oldItem: ContentMessage, newItem: ContentMessage): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
+        override fun areContentsTheSame(oldItem: ContentMessage, newItem: ContentMessage): Boolean {
             return oldItem == newItem
         }
 
     }
 
     class DetailMessageHolder(private val binding: ItemDetailMessageBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bindData(previous: Message, currentMessage: Message, next: Message){
+        fun bindData(previous: ContentMessage, currentContentMessage: ContentMessage, next: ContentMessage){
             val status = if (previous == null) {
                 if (next == null) CONTENT_SINGLE else CONTENT_TOP
             } else {
@@ -47,7 +47,7 @@ class DetailMessageAdapter: ListAdapter<Message, DetailMessageAdapter.DetailMess
                     binding.tvTimeMeSend.visibility = View.VISIBLE
                 }
             }
-            binding.tvMeSend.text = currentMessage.content
+            binding.tvMeSend.text = currentContentMessage.content
         }
 
     }
@@ -62,7 +62,7 @@ class DetailMessageAdapter: ListAdapter<Message, DetailMessageAdapter.DetailMess
 
 
     override fun onBindViewHolder(holder: DetailMessageHolder, position: Int) {
-        val pre: Message? = if (position > 0) {
+        val pre: ContentMessage? = if (position > 0) {
             if (getItem(position - 1).senderid == getItem(position).senderid) {
                 getItem(position)
             } else {
@@ -71,7 +71,7 @@ class DetailMessageAdapter: ListAdapter<Message, DetailMessageAdapter.DetailMess
         } else {
             null
         }
-        val nex: Message? = if (position < itemCount - 1) {
+        val nex: ContentMessage? = if (position < itemCount - 1) {
             if (getItem(position + 1).senderid == getItem(position).senderid) {
                 getItem(position)
             } else {

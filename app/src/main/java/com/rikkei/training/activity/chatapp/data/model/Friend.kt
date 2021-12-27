@@ -4,19 +4,21 @@ import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
-class Message(
+data class Friend(
     val id: String = "",
     val uid1: String = "",
     val uid2: String = "",
-    val contentMessage: List<ContentMessage> = emptyList()
-){
+    val requireduid: String = "",
+    val status: Boolean = false,
+) {
     @Exclude
-    fun toMap(): Map<String, Any> {
+    fun toMap():Map<String,Any>{
         return mapOf(
             "id" to id,
             "uid1" to uid1,
             "uid2" to uid2,
-            "contentMessage" to contentMessage
+            "requireduid" to requireduid,
+            "status" to status
         )
     }
 }

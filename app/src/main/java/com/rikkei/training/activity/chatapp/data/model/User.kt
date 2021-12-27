@@ -10,7 +10,10 @@ data class User(
     val name: String = "",
     val phone: String = "",
     val birthday: String = "",
-    val avatar: String = ""
+    val avatar: String = "",
+    val messages: List<String> = emptyList(),
+    val friends: List<String> = emptyList()
+
 ) {
     @Exclude
     fun toMap():Map<String,Any>{
