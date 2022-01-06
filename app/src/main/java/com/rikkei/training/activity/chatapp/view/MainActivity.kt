@@ -21,21 +21,6 @@ class MainActivity : AppCompatActivity(), MainInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        FirebaseAuth.getInstance().signInWithEmailAndPassword("tn@gmail.com", "tn123456")
-            .addOnCompleteListener {
-                if(it.isSuccessful) {
-                    Toast.makeText(
-                        this,
-                        "Dang nhap tai khoan thanh cong : ${it.result!!.user!!.uid}",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                    Log.e("TA", "onCreate: ${it.result!!.user!!.uid}")
-                }
-            }.addOnFailureListener {
-                Log.e("TA", "onCreate: ${it.message}")
-            }
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -64,7 +49,6 @@ class MainActivity : AppCompatActivity(), MainInterface {
             }
             true
         }
-
 
     }
     private fun showBottomNavigation(){
