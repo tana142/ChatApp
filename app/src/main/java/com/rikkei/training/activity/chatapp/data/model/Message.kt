@@ -8,7 +8,7 @@ class Message(
     val id: String = "",
     val uid1: String = "",
     val uid2: String = "",
-    val contentMessage: List<ContentMessage> = emptyList()
+    val contentMessage: MutableList<ContentMessage> = mutableListOf()
 ){
     @Exclude
     fun toMap(): Map<String, Any> {

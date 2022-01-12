@@ -2,7 +2,6 @@ package com.rikkei.training.activity.chatapp.data.model
 
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
-
 @IgnoreExtraProperties
 data class User(
     val uid: String = "",
@@ -11,8 +10,8 @@ data class User(
     val phone: String = "",
     val birthday: String = "",
     val avatar: String = "",
-    val messages: List<String> = emptyList(),
-    val friends: List<String> = emptyList()
+    val messages: MutableList<String> = mutableListOf(),
+    val friends: MutableList<String> = mutableListOf()
 
 ) {
     @Exclude
@@ -21,7 +20,9 @@ data class User(
             "name" to name,
             "phone" to phone,
             "birthday" to birthday,
-            "avatar" to avatar
+            "avatar" to avatar,
+            "messages" to messages,
+            "friends" to friends
         )
     }
 }
