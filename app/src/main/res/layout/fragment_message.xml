@@ -18,13 +18,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.28" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidLine_h.0923"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.0923" />
-
         <View
             android:id="@+id/view_head"
             android:layout_width="match_parent"
@@ -46,9 +39,9 @@
             android:textColor="@color/white"
             android:textSize="30sp"
             android:layout_marginLeft="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/guidLine_h.0923"
+            android:layout_marginTop="21dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guidLine_h.0923" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/img_add_message"
@@ -58,16 +51,9 @@
             android:scaleType="center"
             android:layout_marginRight="12dp"
             android:src="@drawable/ic_add_message_blue_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/guidLine_h.0923"
+            app:layout_constraintBottom_toBottomOf="@+id/label_message"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guidLine_h.0923" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_h.15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".15" />
+            app:layout_constraintTop_toTopOf="@+id/label_message" />
 
         <EditText
             android:id="@+id/edt_search_message"
@@ -82,11 +68,12 @@
             android:padding="11dp"
             android:maxLines="1"
             android:lines="1"
+            android:layout_marginTop="24dp"
             android:textFontWeight="500"
             android:fontFamily="@font/lato"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/tv_cancel"
-            app:layout_constraintTop_toBottomOf="@id/guideline_h.15"/>
+            app:layout_constraintTop_toBottomOf="@id/label_message"/>
 
         <ImageView
             android:id="@+id/img_cancel"
@@ -117,24 +104,19 @@
             app:layout_constraintBottom_toBottomOf="@id/edt_search_message"
             app:layout_constraintTop_toTopOf="@id/edt_search_message"/>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_h.23"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".23" />
-
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="22dp"
             android:background="@drawable/bg_rcv_message"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline_h.23"/>
+            app:layout_constraintTop_toBottomOf="@id/edt_search_message"/>
 
         <ImageView
+            android:id="@+id/img_search"
             android:layout_width="124dp"
             android:layout_height="124dp"
             android:visibility="gone"
@@ -197,6 +179,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline_h.23" />
+            app:layout_constraintTop_toTopOf="@id/view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
