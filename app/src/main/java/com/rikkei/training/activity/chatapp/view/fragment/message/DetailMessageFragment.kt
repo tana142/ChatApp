@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.rikkei.training.activity.chatapp.R
 import com.rikkei.training.activity.chatapp.adapter.DetailMessageAdapter
 import com.rikkei.training.activity.chatapp.data.model.Conversation
@@ -21,11 +22,15 @@ import com.rikkei.training.activity.chatapp.databinding.FragmentDetailMessageBin
 import com.rikkei.training.activity.chatapp.view.MainInterface
 import com.rikkei.training.activity.chatapp.viewmodel.message.DetailMessageViewModel
 import com.vanniktech.emoji.EmojiPopup
+import androidx.recyclerview.widget.LinearLayoutManager
+
+
+
 
 class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment() {
 
     private val binding by lazy { FragmentDetailMessageBinding.inflate(layoutInflater) }
-    lateinit var detailMessageAdapter: DetailMessageAdapter
+    private var detailMessageAdapter =  DetailMessageAdapter()
     private  val conversation by lazy { arguments?.getSerializable("CONVERSATION")as Conversation }
     val detailMessageViewModel: DetailMessageViewModel by viewModels()
 
@@ -69,12 +74,10 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
                 binding.imgUserMessage.visibility = View.INVISIBLE
                 binding.imgUserMessageDefault.visibility = View.VISIBLE
             }
-        binding.edtMessage.setOnFocusChangeListener { v, hasFocus ->
-            CheckKeyBoard()
 
-        }
-        binding.edtMessage.setOnClickListener {
-            CheckKeyBoard()
+        binding.edtMessage.apply {
+            setOnClickListener { CheckKeyBoard() }
+            setOnFocusChangeListener { v, hasFocus -> CheckKeyBoard()  }
         }
         binding.edtMessage.doOnTextChanged { text, start, before, count ->
             if (text?.length!! > 0) {
@@ -84,34 +87,31 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
             }
         }
         binding.imgSend.setOnClickListener {
-            CheckKeyBoard()
+
             //
             Toast.makeText(context,binding.edtMessage.text, Toast.LENGTH_SHORT).show()
-            Log.e("TAG_DETAIL", "onCreateView: ${binding.edtMessage.text}", )
+            Log.e("TAG_DETAIL", "onCreateView: ${binding.edtMessage.text}")
             val message = binding.edtMessage.text.toString()
-            if(message.isNotEmpty()){
-                detailMessageViewModel.sendMessage( idMessage = conversation.id ,contentMessage = message)
-            }
+            detailMessageViewModel.sendMessage( idMessage = conversation.id ,contentMessage = message)
 
             //
             binding.edtMessage.text.clear()
             binding.edtMessage.requestFocus(1)
             it.visibility = View.GONE
+            CheckKeyBoard()
         }
-        detailMessageAdapter = DetailMessageAdapter()
 
         detailMessageViewModel.liveDataListContent.observe(viewLifecycleOwner, Observer {
             detailMessageAdapter.submitList(it)
-//            detailMessageAdapter.notifyDataSetChanged()
-        })
-        binding.rcvDetailMessage.apply {
-            adapter = detailMessageAdapter
-            visibility = View.VISIBLE
-//            setHasFixedSize(true)
-            setItemViewCacheSize(100)
-//            scrollToPosition(detailMessageAdapter.currentList.size)
+            binding.rcvDetailMessage.apply {
+                adapter = detailMessageAdapter
+                visibility = View.VISIBLE
+                setHasFixedSize(true)
+                setItemViewCacheSize(100)
+            scrollToPosition(detailMessageAdapter.itemCount - 1)
 
-        }
+            }
+        })
 
         val emojiPopup = EmojiPopup.Builder.fromRootView(binding.root).build(binding.edtMessage)
         binding.imageEmoji.setOnClickListener { emojiPopup.toggle() }
@@ -138,9 +138,9 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
                 binding.rootDetail.getWindowVisibleDisplayFrame(rect)
                 val heightDiff = binding.rootDetail.rootView.height - rect.height()
                 if (heightDiff > .25 * binding.rootDetail.rootView.height) {
-                    if (detailMessageViewModel.liveDataListContent.value?.size!! > 0) {
+                    if (detailMessageAdapter.itemCount > 0) {
                         binding.rcvDetailMessage.scrollToPosition(
-                            detailMessageViewModel.liveDataListContent.value?.size!!.minus(
+                            detailMessageAdapter.itemCount.minus(
                                 1
                             )
                         )
@@ -150,9 +150,13 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
                 }
             }
         })
-        binding.rcvDetailMessage.scrollToPosition(
-            detailMessageViewModel.liveDataListContent.value?.size!!.minus(1)
-        )
+        if (detailMessageAdapter.itemCount > 0) {
+            binding.rcvDetailMessage.scrollToPosition(
+                detailMessageAdapter.itemCount.minus(
+                    1
+                )
+            )
+        }
     }
 
     companion object {
