@@ -23,8 +23,7 @@ import com.rikkei.training.activity.chatapp.view.MainInterface
 import com.rikkei.training.activity.chatapp.viewmodel.message.DetailMessageViewModel
 import com.vanniktech.emoji.EmojiPopup
 import androidx.recyclerview.widget.LinearLayoutManager
-
-
+import com.rikkei.training.activity.chatapp.viewmodel.message.MessageViewModel
 
 
 class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment() {
@@ -33,6 +32,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
     private var detailMessageAdapter =  DetailMessageAdapter()
     private  val conversation by lazy { arguments?.getSerializable("CONVERSATION")as Conversation }
     val detailMessageViewModel: DetailMessageViewModel by viewModels()
+    val messageViewModel: MessageViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -53,37 +53,45 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
         )
         mainInterface.hideNavigation()
 
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        detailMessageViewModel.getUserMessage(conversation.id)
+        detailMessageViewModel.getContentMessage(conversation.id)
+
         binding.imgBack.setOnClickListener {
             parentFragmentManager.popBackStack()
             parentFragmentManager.popBackStack("CreateMessage",1)
         }
-        detailMessageViewModel.getUserMessage(conversation.id)
-        detailMessageViewModel.getContentMessage(conversation.id)
 
-            binding.tvNameUserMessage.text = conversation.name
-            if( conversation.avatar != ""){
-                val bytes: ByteArray = Base64.decode(conversation.avatar, Base64.DEFAULT)
-                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                binding.imgUserMessage.apply {
-                    setImageBitmap(bitmap)
-                    visibility = View.VISIBLE
-                }
-                binding.imgUserMessageDefault.visibility = View.INVISIBLE
+
+        binding.tvNameUserMessage.text = conversation.name
+        if( conversation.avatar != ""){
+            val bytes: ByteArray = Base64.decode(conversation.avatar, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            binding.imgUserMessage.apply {
+                setImageBitmap(bitmap)
+                visibility = View.VISIBLE
             }
-            else{
-                binding.imgUserMessage.visibility = View.INVISIBLE
-                binding.imgUserMessageDefault.visibility = View.VISIBLE
-            }
+            binding.imgUserMessageDefault.visibility = View.INVISIBLE
+        }
+        else{
+            binding.imgUserMessage.visibility = View.INVISIBLE
+            binding.imgUserMessageDefault.visibility = View.VISIBLE
+        }
 
         binding.edtMessage.apply {
             setOnClickListener { CheckKeyBoard() }
             setOnFocusChangeListener { v, hasFocus -> CheckKeyBoard()  }
-        }
-        binding.edtMessage.doOnTextChanged { text, start, before, count ->
-            if (text?.length!! > 0) {
-                binding.imgSend.visibility = View.VISIBLE
-            } else {
-                binding.imgSend.visibility = View.GONE
+            doOnTextChanged { text, start, before, count ->
+                if (text?.length!! > 0) {
+                    binding.imgSend.visibility = View.VISIBLE
+                } else {
+                    binding.imgSend.visibility = View.GONE
+                }
             }
         }
         binding.imgSend.setOnClickListener {
@@ -93,7 +101,6 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
             Log.e("TAG_DETAIL", "onCreateView: ${binding.edtMessage.text}")
             val message = binding.edtMessage.text.toString()
             detailMessageViewModel.sendMessage( idMessage = conversation.id ,contentMessage = message)
-
             //
             binding.edtMessage.text.clear()
             binding.edtMessage.requestFocus(1)
@@ -108,7 +115,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
                 visibility = View.VISIBLE
                 setHasFixedSize(true)
                 setItemViewCacheSize(100)
-            scrollToPosition(detailMessageAdapter.itemCount - 1)
+                scrollToPosition(detailMessageAdapter.itemCount - 1)
 
             }
         })
@@ -118,7 +125,6 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
 
 //        binding.imgPhotoLocal.setOnClickListener {
 //        }
-        return binding.root
     }
 
     override fun onDestroy() {

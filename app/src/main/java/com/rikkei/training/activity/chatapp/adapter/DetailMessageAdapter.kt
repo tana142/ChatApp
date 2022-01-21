@@ -19,10 +19,13 @@ import com.rikkei.training.activity.chatapp.R
 import com.rikkei.training.activity.chatapp.data.model.ContentMessage
 import com.rikkei.training.activity.chatapp.data.model.User
 import com.rikkei.training.activity.chatapp.databinding.ItemDetailMessageBinding
+import java.util.*
 
 class DetailMessageAdapter :
     ListAdapter<ContentMessage, DetailMessageAdapter.DetailMessageHolder>(DetailMessageDiffUtil()) {
+
     class DetailMessageDiffUtil : DiffUtil.ItemCallback<ContentMessage>() {
+
         override fun areItemsTheSame(oldItem: ContentMessage, newItem: ContentMessage): Boolean {
             return oldItem.id == newItem.id
         }
@@ -35,6 +38,51 @@ class DetailMessageAdapter :
 
     class DetailMessageHolder(private val binding: ItemDetailMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        fun ConvertTime(milisecond: Long) : String {
+            val calCurrent = Calendar.getInstance()
+            val calLastTime = Calendar.getInstance()
+            calLastTime.timeInMillis = milisecond
+
+            val current_Y = calCurrent.get(Calendar.YEAR)
+            val last_Y = calLastTime.get(Calendar.YEAR)
+
+            val current_M = calCurrent.get(Calendar.MONTH) + 1
+            val last_M = calLastTime.get(Calendar.MONTH) + 1
+
+            val current_D = calCurrent.get(Calendar.DAY_OF_MONTH)
+            val last_D = calLastTime.get(Calendar.DAY_OF_MONTH)
+
+            var month = last_M.toString()
+            var day = last_D.toString()
+            if (last_M in 0..9) {
+                month = "0".plus(month)
+            }
+
+            if (last_D in 0..9) {
+                day = "0".plus(day)
+            }
+
+            if (current_Y == last_Y) {
+                if (current_M == last_M) {
+                    if (current_D == last_D) {
+                        val time_H = calLastTime.get(Calendar.HOUR_OF_DAY)
+                        val time_M = calLastTime.get(Calendar.MINUTE)
+                        var hour = time_H.toString()
+                        var min = time_M.toString()
+                        if (time_M in 0..9) {
+                            min = "0".plus(time_M.toString())
+                        }
+                        if (time_H in 0..9) {
+                            hour = "0".plus(time_H.toString())
+                        }
+                        return "$hour:$min"
+
+                    }
+                }
+            }
+            return "$day/$month/$last_Y"
+        }
+
         fun bindData(
             previous: ContentMessage?,
             currentContentMessage: ContentMessage,
@@ -44,13 +92,14 @@ class DetailMessageAdapter :
                 if (next == null) CONTENT_SINGLE else CONTENT_TOP
             } else {
                 if (next == null) CONTENT_BOTTOM else CONTENT_CENTER
+
             }
             if (currentContentMessage.senderid == Firebase.auth.uid) {
                 when (status) {
                     CONTENT_SINGLE -> {
                         binding.tvMeSend.setBackgroundResource(R.drawable.bg_item_me_send_single)
                         binding.tvTimeMeSend.visibility = View.VISIBLE
-                        binding.tvTimeMeSend.text = currentContentMessage.timestamp
+                        binding.tvTimeMeSend.text = ConvertTime(currentContentMessage.timestamp.toLong())
                     }
                     CONTENT_TOP -> {
                         binding.tvMeSend.setBackgroundResource(R.drawable.bg_item_me_send_top)
@@ -62,6 +111,7 @@ class DetailMessageAdapter :
                     }
                     CONTENT_BOTTOM -> {
                         binding.tvMeSend.setBackgroundResource(R.drawable.bg_item_me_send_bottom)
+                        binding.tvTimeMeSend.text = ConvertTime(currentContentMessage.timestamp.toLong())
                         binding.tvTimeMeSend.visibility = View.VISIBLE
                     }
                 }
@@ -73,7 +123,7 @@ class DetailMessageAdapter :
                         binding.imgUserSend.visibility = View.VISIBLE
                         binding.tvUSend.setBackgroundResource(R.drawable.bg_item_u_send_single)
                         binding.tvTimeUSend.visibility = View.VISIBLE
-                        binding.tvTimeUSend.text = currentContentMessage.timestamp
+                        binding.tvTimeUSend.text = ConvertTime(currentContentMessage.timestamp.toLong())
                     }
                     CONTENT_TOP -> {
                         binding.tvUSend.setBackgroundResource(R.drawable.bg_item_u_send_top)
@@ -86,13 +136,12 @@ class DetailMessageAdapter :
                     CONTENT_BOTTOM -> {
                         binding.imgUserSend.visibility = View.VISIBLE
                         binding.tvUSend.setBackgroundResource(R.drawable.bg_item_u_send_bottom)
+                        binding.tvTimeUSend.text = ConvertTime(currentContentMessage.timestamp.toLong())
                         binding.tvTimeUSend.visibility = View.VISIBLE
                     }
                 }
                 binding.tvUSend.visibility = View.VISIBLE
                 binding.tvUSend.text = currentContentMessage.content
-
-
 
                 Firebase.database.reference.child("users").child(currentContentMessage.senderid)
                         .addValueEventListener(object: ValueEventListener{
@@ -113,7 +162,6 @@ class DetailMessageAdapter :
                             }
 
                             override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
                             }
                         })
             }

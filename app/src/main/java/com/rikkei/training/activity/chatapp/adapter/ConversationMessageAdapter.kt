@@ -31,24 +31,36 @@ class ConversationMessageAdapter(private val onclick:(Conversation) -> Unit): Li
             val current_D = calCurrent.get(Calendar.DAY_OF_MONTH)
             val last_D = calLastTime.get(Calendar.DAY_OF_MONTH)
 
-            if(current_Y == last_Y){
-                if(current_M == last_M){
+            var month = last_M.toString()
+            var day = last_D.toString()
+            if (last_M in 0..9) {
+                month = "0".plus(month)
+            }
+
+            if (last_D in 0..9) {
+                day = "0".plus(day)
+            }
+
+            if(current_Y == last_Y && current_M == last_M){
                     if(current_D == last_D){
                         val time_H = calLastTime.get(Calendar.HOUR_OF_DAY)
                         val time_M = calLastTime.get(Calendar.MINUTE)
-                        return "$time_H:$time_M"
+                        var hour = time_H.toString()
+                        var min = time_M.toString()
+                        if (time_M in 0..9) {
+                            min = "0".plus(time_M.toString())
+                        }
+                        if (time_H in 0..9) {
+                            hour = "0".plus(time_H.toString())
+                        }
+                        return "$hour:$min"
+
                     } else if(current_D.minus(last_D) == 1){
                         return "Hôm qua"
-                    }else {
-                        return "$last_D/$last_M/$last_Y"
                     }
                 }
-                else{
-                    return "$last_D/$last_M/$last_Y"
-                }
-            }else{
-                return "$last_D/$last_M/$last_Y"
-            }
+            return "$day/$month/$last_Y"
+
         }
         fun bindData(conversation: Conversation, onclick: (Conversation) -> Unit){
             binding.tvNameUserMessage.text = conversation.name

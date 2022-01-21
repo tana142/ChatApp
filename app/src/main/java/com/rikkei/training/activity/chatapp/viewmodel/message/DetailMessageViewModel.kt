@@ -2,7 +2,6 @@ package com.rikkei.training.activity.chatapp.viewmodel.message
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -62,19 +61,10 @@ class DetailMessageViewModel: ViewModel() {
                 if (content != null) {
                     listContent.add(content)
                 }
-
                 liveDataListContent.value = listContent
-
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-
-                val content = snapshot.getValue<ContentMessage>()
-                    if (content != null) {
-                        listContent.add(content)
-                    }
-
-                liveDataListContent.value = listContent
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
