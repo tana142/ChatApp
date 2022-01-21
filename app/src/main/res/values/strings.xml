@@ -30,4 +30,5 @@
     <string name="cancel">Hủy</string>
     <string name="find_friend">Tìm kiếm bạn bè</string>
     <string name="listFriend">Danh sách bạn bè</string>
+    <string name="yesterday">Hôm qua</string>
 </resources>
