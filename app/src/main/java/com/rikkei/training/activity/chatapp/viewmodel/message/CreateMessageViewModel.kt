@@ -22,9 +22,6 @@ class CreateMessageViewModel : ViewModel() {
     }
     val liveDataIDMessage = SingleLiveEvent<String>()
 
-    val user: MutableLiveData<User> by lazy {
-        MutableLiveData<User>()
-    }
     val liveDataConversation = MutableLiveData<Conversation>()
     var uid = Firebase.auth.uid
     val ref = Firebase.database.reference
@@ -118,7 +115,7 @@ class CreateMessageViewModel : ViewModel() {
                         ref.child("messages").child(uuidMessage).setValue(
                             Message(
                                 id = uuidMessage,
-                                uid1 = user?.value?.uid.toString(),
+                                uid1 = uid.toString(),
                                 uid2 = newUser.uid
                             )
                         )
