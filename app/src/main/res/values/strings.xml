@@ -9,10 +9,29 @@
     <string name="logout">Đăng xuất</string>
     <string name="notify">Thông báo</string>
     <string name="version">Phiên bản ứng dụng</string>
+    <string name="edit_infomation">Chỉnh sửa thông tin</string>
+    <string name="save">Lưu</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="birthday">Ngày sinh</string>
+    <string name="edit_profile_update_success">Cập nhật thông tin thành công</string>
+    <string name="edit_profile_update_failure">Cập nhật thông tin thất bại</string>
+    <string name="camera">Máy ảnh</string>
+    <string name="Album">Thư viện</string>
+    //message
+    <string name="result_search_message">Không tìm thấy kết quả phù hợp</string>
+    <string name="you">Bạn</string>
+    //dialog edit profile
+    <string name="choose_image">Lấy ảnh từ?</string>
+    <string name="choose_language">Chọn ngôn ngữ</string>
+    <string name="viet_nam">Việt Nam</string>
+    <string name="english">English</string>
     //
     <string name="find_message">Tìm kiếm tin nhắn</string>
     <string name="friend">Bạn bè</string>
     <string name="personal">Trang cá nhân</string>
     <string name="create_message">Tạo tin nhắn</string>
     <string name="cancel">Hủy</string>
+    <string name="find_friend">Tìm kiếm bạn bè</string>
+    <string name="listFriend">Danh sách bạn bè</string>
 </resources>
