@@ -20,7 +20,7 @@
     <string name="Album">Thư viện</string>
     //message
     <string name="result_search_message">Không tìm thấy kết quả phù hợp</string>
-    <string name="you">Bạn</string>
+    <string name="you">Bạn:</string>
     //dialog edit profile
     <string name="choose_image">Lấy ảnh từ?</string>
     <string name="choose_language">Chọn ngôn ngữ</string>

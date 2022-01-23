@@ -20,7 +20,7 @@
     <string name="Album">Album</string>
     //message
     <string name="result_search_message">No matching results were found</string>
-    <string name="you">You</string>
+    <string name="you">You:</string>
     //dialog edit profile
     <string name="choose_image">Take pictures from?</string>
     <string name="choose_language">Choose language</string>
