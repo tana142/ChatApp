@@ -266,23 +266,23 @@
             app:layout_constraintTop_toTopOf="@id/guideline_h.649" />
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/va"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="185dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="512dp"
-
-            android:text=" và"
+            android:text="và"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/guideline_h.649"
-            app:layout_constraintLeft_toRightOf="@+id/checkbox_register"
+            app:layout_constraintLeft_toRightOf="@+id/cs"
             app:layout_constraintTop_toTopOf="@id/guideline_h.649" />
 
         <TextView
+            android:id="@+id/dy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="11dp"
             android:layout_marginTop="512dp"
-
             android:text="Tôi đồng ý với các"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/guideline_h.649"
@@ -292,25 +292,26 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="205dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="512dp"
-
             android:text="điều khoản"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/guideline_h.649"
-            app:layout_constraintLeft_toRightOf="@+id/checkbox_register"
-            app:layout_constraintTop_toTopOf="@id/guideline_h.649" />
+            app:layout_constraintLeft_toRightOf="@+id/va"
+            app:layout_constraintTop_toTopOf="@id/guideline_h.649"
+             />
 
         <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/cs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="121dp"
             android:layout_marginTop="512dp"
             android:text="chính sách"
             android:textColor="#4356B4"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/guideline_h.649"
-            app:layout_constraintLeft_toRightOf="@+id/checkbox_register"
+            app:layout_constraintLeft_toRightOf="@+id/dy"
             app:layout_constraintTop_toTopOf="@id/guideline_h.649" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

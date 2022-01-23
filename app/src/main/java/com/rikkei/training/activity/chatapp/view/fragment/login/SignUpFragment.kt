@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -52,6 +53,10 @@ class SignUpFragment(private val mainInterface: MainInterface) : Fragment() {
                     replace(R.id.container_view, LoginFragment.Instance(mainInterface))
                 }
             }
+            checkboxRegister.setOnClickListener {
+                val ic=AppCompatResources.getDrawable(context!!.applicationContext,R.drawable.ic_check)
+                checkboxRegister.setImageDrawable(ic)
+            }
         }
         viewModel.isSuccessFull.observe(this, Observer {
             if (it) {
@@ -61,6 +66,7 @@ class SignUpFragment(private val mainInterface: MainInterface) : Fragment() {
                 Log.d("Signup", "Signup failed")
             }
         })
+
         return binding.root
     }
 
@@ -69,9 +75,11 @@ class SignUpFragment(private val mainInterface: MainInterface) : Fragment() {
     }
 
     fun isVaildate(): Boolean {
-        if (binding.reigsiterEmail.text.isNullOrEmpty() || binding.registerPass.text.isNullOrEmpty() || binding.reigsiterName.text.isNullOrEmpty()) {
+        if (binding.reigsiterEmail.text.isNullOrEmpty() || binding.registerPass.text.isNullOrEmpty() || binding.reigsiterName.text.isNullOrEmpty()||binding.registerPass.text.length>8) {
             return false
         }
         return true
     }
 }
+
+
