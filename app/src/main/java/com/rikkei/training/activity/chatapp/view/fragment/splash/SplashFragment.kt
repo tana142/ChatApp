@@ -36,6 +36,7 @@ class SplashFragment(private val mainInterface: MainInterface) : Fragment() {
                 }else{
                     replace(R.id.container_view, MessageFragment.Instance(mainInterface))
                 }
+                //doan code nay khong hop ly
             }
         }
         return binding.root

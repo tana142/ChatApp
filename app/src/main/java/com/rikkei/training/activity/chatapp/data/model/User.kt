@@ -11,6 +11,7 @@ data class User(
     val phone: String = "",
     val birthday: String = "",
     val avatar: String = ""
+
 ) {
     @Exclude
     fun toMap():Map<String,Any>{

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">ChatApp</string>
     <string name="message">Tin nhắn</string>
+    //
+    friend
+
     //splash
     <string name="app_name_sub1">Awesome\t\t</string>
     <string name="app_name_sub2">chat</string>
@@ -28,4 +31,6 @@
     <string name="personal">Trang cá nhân</string>
     <string name="create_message">Tạo tin nhắn</string>
     <string name="cancel">Hủy</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
