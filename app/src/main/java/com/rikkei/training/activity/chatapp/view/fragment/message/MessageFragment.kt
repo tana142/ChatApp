@@ -52,7 +52,7 @@ class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        messageViewModel.setString(resources.getString(R.string.you))
         userMessageAdapter = ConversationMessageAdapter { conversation ->
 
             messageViewModel.updateMessage(conversation)
@@ -85,6 +85,8 @@ class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
             visibility = View.VISIBLE
         }
         messageViewModel.liveDataListConversation.observe(this, {
+
+
 
             Collections.sort(
                 it,

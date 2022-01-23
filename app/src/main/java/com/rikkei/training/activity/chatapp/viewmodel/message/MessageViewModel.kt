@@ -14,8 +14,13 @@ import com.rikkei.training.activity.chatapp.data.model.User
 
 class MessageViewModel : ViewModel() {
 
+    private var string = ""
     val liveDataListConversation = MutableLiveData<List<Conversation>>()
     val conversations = mutableListOf<Conversation>()
+
+    fun setString(s:String) {
+        string = s
+    }
 
     fun getListConversation(message: Message, idPartner: String) {
         var idMessage = ""
@@ -33,7 +38,7 @@ class MessageViewModel : ViewModel() {
                     && it.timestamp.toLong() > lastTime.toLong()) {
                     lastTime = it.timestamp
                     if(it.senderid != idPartner){
-                        lastMessage = "Bạn: ".plus(it.content)
+                        lastMessage = string.plus(" ".plus(it.content))
                     } else {
                         lastMessage = it.content
                     }
