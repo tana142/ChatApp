@@ -23,9 +23,8 @@ import com.rikkei.training.activity.chatapp.view.MainInterface
 import com.rikkei.training.activity.chatapp.viewmodel.message.DetailMessageViewModel
 import com.vanniktech.emoji.EmojiPopup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.*
-import com.rikkei.training.activity.chatapp.viewmodel.message.MessageViewModel
-import java.util.*
+
+
 
 
 class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment() {
@@ -33,7 +32,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
     private val binding by lazy { FragmentDetailMessageBinding.inflate(layoutInflater) }
     private var detailMessageAdapter =  DetailMessageAdapter()
     private  val conversation by lazy { arguments?.getSerializable("CONVERSATION")as Conversation }
-    private val detailMessageViewModel: DetailMessageViewModel by viewModels()
+    val detailMessageViewModel: DetailMessageViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -54,21 +53,12 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
         )
         mainInterface.hideNavigation()
 
-
-        return binding.root
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        detailMessageViewModel.getUserMessage(conversation.id)
-        detailMessageViewModel.getContentMessage(conversation.id)
-
         binding.imgBack.setOnClickListener {
             parentFragmentManager.popBackStack()
             parentFragmentManager.popBackStack("CreateMessage",1)
         }
-
+        detailMessageViewModel.getUserMessage(conversation.id)
+        detailMessageViewModel.getContentMessage(conversation.id)
 
         binding.tvNameUserMessage.text = conversation.name
         if( conversation.avatar != ""){
@@ -103,6 +93,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
             Log.e("TAG_DETAIL", "onCreateView: ${binding.edtMessage.text}")
             val message = binding.edtMessage.text.toString()
             detailMessageViewModel.sendMessage( idMessage = conversation.id ,contentMessage = message)
+
             //
             binding.edtMessage.text.clear()
             binding.edtMessage.requestFocus(1)
@@ -144,7 +135,6 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
                 }
 
             }
-
         })
 
         val emojiPopup = EmojiPopup.Builder.fromRootView(binding.root).build(binding.edtMessage)
@@ -152,6 +142,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
 
 //        binding.imgPhotoLocal.setOnClickListener {
 //        }
+        return binding.root
     }
 
     override fun onDestroy() {

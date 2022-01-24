@@ -21,9 +21,6 @@ class ConversationMessageAdapter(private val onclick:(Conversation) -> Unit): Li
         time = s
     }
     class ConversationViewHolder(private val binding: ItemMessageBinding) : RecyclerView.ViewHolder(binding.root) {
-
-
-
         fun ConvertTime(milisecond: Long) : String{
             val calCurrent = Calendar.getInstance()
             val calLastTime = Calendar.getInstance()
