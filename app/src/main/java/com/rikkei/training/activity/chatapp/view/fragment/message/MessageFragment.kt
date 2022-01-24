@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import android.R.attr.data
 import android.content.Context
+import android.content.res.Resources
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
@@ -78,6 +79,7 @@ class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
             }
         }
         userMessageAdapter.submitList(null)
+        userMessageAdapter.setTimeFomat(getString(R.string.yesterday))
         binding.rcvMessage.apply {
             adapter = userMessageAdapter
             visibility = View.VISIBLE
@@ -107,7 +109,6 @@ class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
                 edtSearchMessage.text = null
                 imgCancel.visibility = View.GONE
             }
-
 
             edtSearchMessage.setOnFocusChangeListener { v, hasFocus ->
                 mainInterface.hideNavigation()
@@ -140,7 +141,6 @@ class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
                     count: Int,
                     after: Int
                 ) {
-
                 }
 
                 override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
@@ -188,7 +188,6 @@ class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-
                 }
             })
             imgAddMessage.setOnClickListener {

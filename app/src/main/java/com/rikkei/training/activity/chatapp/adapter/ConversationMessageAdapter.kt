@@ -13,9 +13,13 @@ import com.rikkei.training.activity.chatapp.data.model.Conversation
 import com.rikkei.training.activity.chatapp.databinding.ItemMessageBinding
 import java.util.*
 
+var time:String = ""
 class ConversationMessageAdapter(private val onclick:(Conversation) -> Unit): ListAdapter<Conversation, ConversationMessageAdapter.ConversationViewHolder>(
     ConversationDiffCalback()
 ) {
+    fun setTimeFomat(s: String){
+        time = s
+    }
     class ConversationViewHolder(private val binding: ItemMessageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun ConvertTime(milisecond: Long) : String{
             val calCurrent = Calendar.getInstance()
@@ -56,7 +60,7 @@ class ConversationMessageAdapter(private val onclick:(Conversation) -> Unit): Li
                         return "$hour:$min"
 
                     } else if(current_D.minus(last_D) == 1){
-                        return "Hôm qua"
+                        return time
                     }
                 }
             return "$day/$month/$last_Y"
