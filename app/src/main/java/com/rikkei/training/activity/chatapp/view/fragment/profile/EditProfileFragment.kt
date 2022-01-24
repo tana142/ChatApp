@@ -39,14 +39,15 @@ class EditProfileFragment(private val mainInterface: MainInterface) : Fragment()
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         activity?.window?.statusBarColor =
             context?.let { ContextCompat.getColor(it, R.color.blue_start) }!!
-
         mainInterface.hideNavigation()
 
-        binding.imageCameraPhoto.setOnClickListener {
-            OpenDialog()
-        }
+        return binding.root
+    }
 
-        viewModel.user.observe(viewLifecycleOwner, Observer {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.user.observe(viewLifecycleOwner, {
             if (it != null) {
                 binding.edtFullName.setText(it.name)
                 binding.edtBirthday.setText(it.birthday)
@@ -60,49 +61,54 @@ class EditProfileFragment(private val mainInterface: MainInterface) : Fragment()
                 }
             }
         })
+        binding.run {
+            imageCameraPhoto.setOnClickListener {
+                OpenDialog()
+            }
+            imgBack.setOnClickListener {
+                parentFragmentManager.popBackStack()
+            }
+            tvSave.setOnClickListener {
+                val name = binding.edtFullName.text.toString()
+                val birthday = binding.edtBirthday.text.toString()
+                val phone = binding.edtPhoneNumber.text.toString()
+                if (
+                    name.isNotEmpty() ||
+                    birthday.isNotEmpty() ||
+                    phone.isNotEmpty() ||
+                    baseImage.toString() != null
+                ) {
+                    viewModel.updateInfomation(baseImage.toString(), name, phone, birthday)
+                    viewModel.updateState.observe(viewLifecycleOwner, {
+                        Toast.makeText(context, getString(it as Int), Toast.LENGTH_SHORT).show()
+                        parentFragmentManager.popBackStack()
+                    })
+                }
+            }
 
-        binding.imgBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-        binding.tvSave.setOnClickListener {
-            val name = binding.edtFullName.text.toString()
-            val birthday = binding.edtBirthday.text.toString()
-            val phone = binding.edtPhoneNumber.text.toString()
-            if (
-                name.isNotEmpty() ||
-                birthday.isNotEmpty() ||
-                phone.isNotEmpty() ||
-                baseImage.toString() != null
-            ) {
-                viewModel.updateInfomation(baseImage.toString(), name, phone, birthday)
-                viewModel.updateState.observe(viewLifecycleOwner, Observer {
-                    Toast.makeText(context, getString(it as Int), Toast.LENGTH_SHORT).show()
-                })
+            edtBirthday.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    binding.edtBirthday.clearFocus()
+                }
+                false
+            }
+            edtPhoneNumber.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    binding.edtPhoneNumber.clearFocus()
+                }
+                false
+            }
+            edtFullName.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    binding.edtFullName.clearFocus()
+                }
+                false
             }
         }
 
-        binding.edtBirthday.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                binding.edtBirthday.clearFocus()
-            }
-            false
-        }
-        binding.edtPhoneNumber.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                binding.edtPhoneNumber.clearFocus()
-            }
-            false
-        }
-        binding.edtFullName.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                binding.edtFullName.clearFocus()
-            }
-            false
-        }
         CheckKeyBoard()
-        return binding.root
     }
-    val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
         if(it){
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             selectImageLauncher1.launch(intent)
@@ -111,24 +117,26 @@ class EditProfileFragment(private val mainInterface: MainInterface) : Fragment()
             Log.e("TAG", ": denied")
         }
     }
-    val selectImageLauncher1 = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+    private val selectImageLauncher1 =
+        registerForActivityResult(ActivityResultContracts
+        .StartActivityForResult()){
         if(it.resultCode == Activity.RESULT_OK){
-            val photo = it.data?.getExtras()?.get("data") as Bitmap
+            val photo = it.data?.extras?.get("data") as Bitmap
             val stream = ByteArrayOutputStream()
-            photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val bytes = stream.toByteArray()
-            baseImage = Base64.encodeToString(bytes, Base64.DEFAULT);
+            baseImage = Base64.encodeToString(bytes, Base64.DEFAULT)
             binding.imageAvatar.setImageBitmap(photo)
         }
     }
-    val selectImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val selectImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if(it.resultCode == Activity.RESULT_OK){
             imageUri = it.data?.data
             val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver!!, imageUri!!)
             val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val bytes = stream.toByteArray()
-            baseImage = Base64.encodeToString(bytes, Base64.DEFAULT);
+            baseImage = Base64.encodeToString(bytes, Base64.DEFAULT)
             binding.imageAvatar.setImageBitmap(bitmap)
         }
     }
@@ -148,19 +156,16 @@ class EditProfileFragment(private val mainInterface: MainInterface) : Fragment()
     }
 
     private fun CheckKeyBoard() {
-        binding.rootEdit.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                var rect = Rect()
-                binding.rootEdit.getWindowVisibleDisplayFrame(rect)
-                val heightDiff = binding.rootEdit.rootView.height - rect.height()
-                if (heightDiff > .25 * binding.rootEdit.rootView.height) {
-                    viewHide()
-                } else {
-                    viewShow()
-                }
+        binding.rootEdit.viewTreeObserver.addOnGlobalLayoutListener {
+            val rect = Rect()
+            binding.rootEdit.getWindowVisibleDisplayFrame(rect)
+            val heightDiff = binding.rootEdit.rootView.height - rect.height()
+            if (heightDiff > .25 * binding.rootEdit.rootView.height) {
+                viewHide()
+            } else {
+                viewShow()
             }
-        })
+        }
     }
 
     private fun OpenDialog() {

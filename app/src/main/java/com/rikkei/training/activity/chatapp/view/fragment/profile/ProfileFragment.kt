@@ -9,11 +9,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.rikkei.training.activity.chatapp.R
@@ -23,7 +21,6 @@ import com.rikkei.training.activity.chatapp.view.SHARE_PREF_LANG
 import com.rikkei.training.activity.chatapp.view.SHARE_PREF_NAME
 import com.rikkei.training.activity.chatapp.view.fragment.login.LoginFragment
 import com.rikkei.training.activity.chatapp.viewmodel.profile.ProfileViewModel
-import java.util.*
 
 class ProfileFragment(private val mainInterface: MainInterface) : Fragment() {
 
@@ -33,7 +30,7 @@ class ProfileFragment(private val mainInterface: MainInterface) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mainInterface.showNavigation()
         val sharePref = context?.getSharedPreferences(SHARE_PREF_NAME, AppCompatActivity.MODE_PRIVATE)
         val lang = sharePref?.getString(SHARE_PREF_LANG,"")
@@ -46,7 +43,7 @@ class ProfileFragment(private val mainInterface: MainInterface) : Fragment() {
             }
         }
 
-        viewModel.user.observe(viewLifecycleOwner, Observer {
+        viewModel.user.observe(viewLifecycleOwner, {
             if (it != null) {
                 binding.tvUserName.text = it.name
                 binding.tvUserEmail.text = it.email
