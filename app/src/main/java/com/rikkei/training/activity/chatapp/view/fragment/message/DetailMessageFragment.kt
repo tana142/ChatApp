@@ -2,14 +2,12 @@ package com.rikkei.training.activity.chatapp.view.fragment.message
 
 import android.graphics.BitmapFactory
 import android.graphics.Rect
-import android.os.Build
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
@@ -23,8 +21,7 @@ import com.rikkei.training.activity.chatapp.view.MainInterface
 import com.rikkei.training.activity.chatapp.viewmodel.message.DetailMessageViewModel
 import com.vanniktech.emoji.EmojiPopup
 import androidx.recyclerview.widget.LinearLayoutManager
-
-
+import java.util.*
 
 
 class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment() {
@@ -32,9 +29,8 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
     private val binding by lazy { FragmentDetailMessageBinding.inflate(layoutInflater) }
     private var detailMessageAdapter =  DetailMessageAdapter()
     private  val conversation by lazy { arguments?.getSerializable("CONVERSATION")as Conversation }
-    val detailMessageViewModel: DetailMessageViewModel by viewModels()
+    private val detailMessageViewModel: DetailMessageViewModel by viewModels()
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +49,12 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
         )
         mainInterface.hideNavigation()
 
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.imgBack.setOnClickListener {
             parentFragmentManager.popBackStack()
             parentFragmentManager.popBackStack("CreateMessage",1)
@@ -120,7 +122,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
             }
         })
 
-        binding.rcvDetailMessage.addOnScrollListener(object : OnScrollListener() {
+        binding.rcvDetailMessage.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val count = detailMessageAdapter.itemCount
@@ -142,7 +144,6 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
 
 //        binding.imgPhotoLocal.setOnClickListener {
 //        }
-        return binding.root
     }
 
     override fun onDestroy() {
@@ -218,7 +219,6 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
             }
         }
         return "$day/$month/$last_Y"
-
     }
 
     companion object {
