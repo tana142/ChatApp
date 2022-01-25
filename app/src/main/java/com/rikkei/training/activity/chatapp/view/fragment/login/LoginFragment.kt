@@ -20,37 +20,40 @@ import com.rikkei.training.activity.chatapp.viewmodel.login.LoginViewModel
 class LoginFragment(private val mainInterface: MainInterface) : Fragment() {
 
     private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
-    private lateinit var  viewModel:LoginViewModel
+    private lateinit var viewModel: LoginViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         mainInterface.hideNavigation()
-        viewModel=ViewModelProvider(this).get(LoginViewModel::class.java)
-        binding.loginBtn.setOnClickListener {
-           if (isVaildate()){
-               viewModel.login(binding.loginEmail.text.toString(),binding.loginPass.text.toString())
-           }
-            else{
-               Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_SHORT).show()
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        binding.apply {
+            loginBtn.setOnClickListener {
+                if (isVaildate()) {
+                    viewModel.login(
+                        binding.loginEmail.text.toString(),
+                        binding.loginPass.text.toString()
+                    )
+                } else {
+                    Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_SHORT).show()
+                }
+            }
+            loginDk.setOnClickListener {
+                parentFragmentManager.commit {
+                    replace(R.id.container_view, SignUpFragment.Instance(mainInterface))
+                }
             }
         }
         viewModel.isSuccessFul.observe(this, Observer {
-            if (it){
-               Log.d("Login","Login success")
-                   parentFragmentManager.commit {
-                       replace(R.id.container_view,MessageFragment.Instance(mainInterface))
-                   }
-            }
-            else{
-                Log.d("Login","Login failed")
+            if (it) {
+                Log.d("Login", "Login success")
+                parentFragmentManager.commit {
+                    replace(R.id.container_view, MessageFragment.Instance(mainInterface))
+                }
+            } else {
+                Log.d("Login", "Login failed")
             }
         })
-        binding.loginDk.setOnClickListener {
-            parentFragmentManager.commit {
-                replace(R.id.container_view,SignUpFragment.Instance(mainInterface))
-            }
-        }
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -58,7 +61,8 @@ class LoginFragment(private val mainInterface: MainInterface) : Fragment() {
     companion object {
         fun Instance(mainInterface: MainInterface) = LoginFragment(mainInterface)
     }
-    fun isVaildate():Boolean{
+
+    fun isVaildate(): Boolean {
         if (binding.loginEmail.text.isNullOrEmpty() || binding.loginPass.text.isNullOrEmpty()) {
             return false
         }

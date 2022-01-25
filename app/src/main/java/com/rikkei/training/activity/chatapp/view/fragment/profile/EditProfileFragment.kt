@@ -99,6 +99,10 @@ class EditProfileFragment(private val mainInterface: MainInterface) : Fragment()
             }
             false
         }
+
+        binding.apply {
+
+        }
         CheckKeyBoard()
         return binding.root
     }

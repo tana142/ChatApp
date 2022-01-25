@@ -58,6 +58,12 @@ class ProfileFragment(private val mainInterface: MainInterface) : Fragment() {
             }
         }
 
+        binding.viewLogout.setOnClickListener {
+FirebaseAuth.getInstance().signOut()
+            parentFragmentManager.commit {
+                replace(R.id.container_view, LoginFragment.Instance(mainInterface))
+            }
+        }
         return binding.root
     }
 

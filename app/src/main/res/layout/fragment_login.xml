@@ -87,9 +87,7 @@
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@id/guideline_h.0.3312"
             app:layout_constraintLeft_toRightOf="@id/guideline_v.064"
-            app:layout_constraintRight_toRightOf="@id/guideline_h.48"
             app:layout_constraintTop_toTopOf="@id/guideline_h.0.3312" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_h.0.44"
             android:layout_width="0dp"
