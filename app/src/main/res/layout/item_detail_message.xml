@@ -8,13 +8,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp">
 
         <View
             android:id="@+id/view_space"
             android:layout_width="match_parent"
             android:layout_height="18dp"
             android:background="@color/white"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/tv_u_send"
             app:layout_constraintTop_toTopOf="parent"/>
         
@@ -26,7 +28,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:padding="15dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:fontFamily="@font/lato"
             app:layout_constraintWidth_percent="0.75"
             app:layout_constraintWidth_max="wrap"
@@ -35,15 +37,13 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_space"
             app:layout_constraintBottom_toTopOf="@id/tv_time_me_send"
-            android:background="@drawable/bg_item_me_send_single"
-            android:text="123 as123 asiy asiyng iyng "/>
+            android:background="@drawable/bg_item_me_send_single"/>
 
         <TextView
             android:id="@+id/tv_time_me_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10:45"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_marginTop="3dp"
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/tv_me_send"
@@ -57,7 +57,7 @@
             android:src="@drawable/ic_avatar_user_default_white_icon"
             android:background="@drawable/bg_item_message"
             android:scaleType="center"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/view_space"
             app:layout_constraintLeft_toLeftOf="parent"/>
         <de.hdodenhof.circleimageview.CircleImageView
@@ -66,7 +66,7 @@
             android:layout_height="35dp"
             android:background="@drawable/bg_item_message"
             android:scaleType="centerCrop"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/view_space"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -78,7 +78,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:padding="15dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:fontFamily="@font/lato"
             app:layout_constraintWidth_percent="0.75"
             app:layout_constraintWidth_max="wrap"
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10:45"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_marginTop="3dp"
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/tv_u_send"

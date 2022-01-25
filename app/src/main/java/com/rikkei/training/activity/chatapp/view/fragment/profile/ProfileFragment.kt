@@ -11,6 +11,8 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.rikkei.training.activity.chatapp.R
 import com.rikkei.training.activity.chatapp.databinding.FragmentProfileBinding
 import com.rikkei.training.activity.chatapp.view.MainInterface
@@ -49,7 +51,12 @@ class ProfileFragment(private val mainInterface: MainInterface) : Fragment() {
                 addToBackStack("Edit")
             }
         }
-//        binding
+        binding.viewLogout.setOnClickListener {
+            Firebase.auth.signOut()
+            parentFragmentManager.commit {
+                replace(R.id.container_view, LoginFragment.Instance(mainInterface))
+            }
+        }
 
         binding.viewLogout.setOnClickListener {
 FirebaseAuth.getInstance().signOut()

@@ -1,21 +1,22 @@
 package com.rikkei.training.activity.chatapp.data.model
 
-data class Message(
+import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
+
+@IgnoreExtraProperties
+class Message(
     val id: String = "",
-    val senderid: String = "",
-    val type: String = "",
-    val isseen: Boolean = false,
-    val content: String = "",
-    val timestamp: String = ""
-) {
+    val uid1: String = "",
+    val uid2: String = "",
+    val contentMessage: MutableList<ContentMessage> = mutableListOf()
+){
+    @Exclude
     fun toMap(): Map<String, Any> {
         return mapOf(
             "id" to id,
-            "senderid" to senderid,
-            "type" to type,
-            "isseen" to isseen,
-            "content" to content,
-            "timestamp" to timestamp
+            "uid1" to uid1,
+            "uid2" to uid2,
+            "contentMessage" to contentMessage
         )
     }
 }
