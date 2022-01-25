@@ -75,7 +75,7 @@ class SignUpFragment(private val mainInterface: MainInterface) : Fragment() {
     }
 
     fun isVaildate(): Boolean {
-        if (binding.reigsiterEmail.text.isNullOrEmpty() || binding.registerPass.text.isNullOrEmpty() || binding.reigsiterName.text.isNullOrEmpty()||binding.registerPass.text.length>8) {
+        if (binding.reigsiterEmail.text.isNullOrEmpty() || binding.registerPass.text.isNullOrEmpty() || binding.reigsiterName.text.isNullOrEmpty()||binding.registerPass.text.length<8) {
             return false
         }
         return true
