@@ -6,18 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rikkei.training.activity.chatapp.R
+import com.rikkei.training.activity.chatapp.databinding.FragmentFriendBinding
+import com.rikkei.training.activity.chatapp.view.MainInterface
 
-class FriendFragment : Fragment() {
+class FriendFragment(private val mainInterface: MainInterface) : Fragment() {
 
+    private val binding by lazy { FragmentFriendBinding.inflate(layoutInflater) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainInterface.showNavigation()
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friend, container, false)
+        return binding.root
     }
 
     companion object {
-
+        fun Instance(mainInterface: MainInterface) = FriendFragment(mainInterface)
     }
 }

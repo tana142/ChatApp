@@ -29,7 +29,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
 }
@@ -46,6 +46,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     def lifecycle_version = "2.4.0"
+   //coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -54,4 +57,22 @@ dependencies {
 
     def fragment_version = "1.4.0"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    //emoji
+    def emoji2_version = "1.0.0"
+
+    implementation "androidx.emoji2:emoji2:$emoji2_version"
+    implementation "androidx.emoji2:emoji2-views:$emoji2_version"
+    implementation "androidx.emoji2:emoji2-views-helper:$emoji2_version"
+    //
+    implementation "com.vanniktech:emoji-google:0.6.0"
+    implementation 'gun0912.ted:tedbottompicker:2.0.1'
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:29.0.3')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx'
+    //circle image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'

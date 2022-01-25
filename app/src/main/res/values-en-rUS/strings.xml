@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">ChatApp</string>
+    <string name="message">Message</string>
+    //splash
+    <string name="app_name_sub1">Awesome\t\t</string>
+    <string name="app_name_sub2">chat</string>
+    //profile
+    <string name="languages">Languages</string>
+    <string name="logout">Logout</string>
+    <string name="notify">Notification</string>
+    <string name="version">App Version</string>
+    <string name="edit_infomation">Edit information</string>
+    <string name="save">Save</string>
+    <string name="full_name">Full name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="birthday">Birthday</string>
+    <string name="edit_profile_update_success">Update information success</string>
+    <string name="edit_profile_update_failure">Update information failure</string>
+    <string name="camera">Camera</string>
+    <string name="Album">Album</string>
+    //message
+    <string name="result_search_message">No matching results were found</string>
+    <string name="you">You:</string>
+    //dialog edit profile
+    <string name="choose_image">Take pictures from?</string>
+    <string name="choose_language">Choose language</string>
+    <string name="viet_nam">Việt Nam</string>
+    <string name="english">English</string>
+    //
+    <string name="find_message">Find message</string>
+    <string name="friend">Friend</string>
+    <string name="personal">Personal</string>
+    <string name="create_message">Create message</string>
+    <string name="cancel">Cancel</string>
+    <string name="find_friend">Find friend</string>
+    <string name="listFriend">List friend</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="permission_granted">Permission granted</string>
+    <string name="permission_denied">Permission denied</string>
+</resources>
