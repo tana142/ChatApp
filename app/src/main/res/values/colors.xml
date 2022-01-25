@@ -15,4 +15,6 @@
     <color name="gray">#D2D2D2</color>
     <color name="gray_detail_message">#E5E5E5</color>
     <color name="gray_detail_message2">#F6F6F6</color>
+    //profile
+    <color name="gray_cancel_search_message">#999999</color>
 </resources>
