@@ -41,6 +41,8 @@ class ProfileFragment(private val mainInterface: MainInterface) : Fragment() {
             if(lang == "en"){
                 binding.tvLanguages.text = context?.resources?.getString(R.string.english)
             }
+        }else{
+            binding.tvLanguages.text = context?.resources?.getString(R.string.viet_nam)
         }
 
         viewModel.user.observe(viewLifecycleOwner, {

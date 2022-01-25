@@ -8,14 +8,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.rikkei.training.activity.chatapp.R
 import com.rikkei.training.activity.chatapp.databinding.FragmentEditProfileBinding
 import com.rikkei.training.activity.chatapp.view.MainInterface
@@ -112,9 +110,9 @@ class EditProfileFragment(private val mainInterface: MainInterface) : Fragment()
         if(it){
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             selectImageLauncher1.launch(intent)
-            Log.e("TAG", ": granted")
+            Toast.makeText(context, resources.getString(R.string.permission_granted), Toast.LENGTH_SHORT).show()
         }else{
-            Log.e("TAG", ": denied")
+            Toast.makeText(context, resources.getString(R.string.permission_denied), Toast.LENGTH_SHORT).show()
         }
     }
     private val selectImageLauncher1 =
@@ -129,7 +127,11 @@ class EditProfileFragment(private val mainInterface: MainInterface) : Fragment()
             binding.imageAvatar.setImageBitmap(photo)
         }
     }
-    private val selectImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val selectImageLauncher =
+        registerForActivityResult(
+            ActivityResultContracts
+                .StartActivityForResult()
+        ) {
         if(it.resultCode == Activity.RESULT_OK){
             imageUri = it.data?.data
             val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver!!, imageUri!!)
@@ -142,17 +144,21 @@ class EditProfileFragment(private val mainInterface: MainInterface) : Fragment()
     }
 
     private fun viewHide() {
-        binding.imgBack.visibility = View.GONE
-        binding.tvLabelEdit.visibility = View.GONE
-        binding.tvSave.visibility = View.GONE
-        binding.viewBackground.visibility = View.GONE
+        binding.run {
+            imgBack.visibility = View.GONE
+            tvLabelEdit.visibility = View.GONE
+            tvSave.visibility = View.GONE
+            viewBackground.visibility = View.GONE
+        }
     }
 
     private fun viewShow() {
-        binding.imgBack.visibility = View.VISIBLE
-        binding.tvLabelEdit.visibility = View.VISIBLE
-        binding.tvSave.visibility = View.VISIBLE
-        binding.viewBackground.visibility = View.VISIBLE
+        binding.run {
+            imgBack.visibility = View.VISIBLE
+            tvLabelEdit.visibility = View.VISIBLE
+            tvSave.visibility = View.VISIBLE
+            viewBackground.visibility = View.VISIBLE
+        }
     }
 
     private fun CheckKeyBoard() {

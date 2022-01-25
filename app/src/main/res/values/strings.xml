@@ -35,4 +35,6 @@
     <string name="find_friend">Tìm kiếm bạn bè</string>
     <string name="listFriend">Danh sách bạn bè</string>
     <string name="yesterday">Hôm qua</string>
+    <string name="permission_granted">Quyền được cấp phép</string>
+    <string name="permission_denied">Quyền bị từ chối</string>
 </resources>

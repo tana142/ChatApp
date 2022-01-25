@@ -10,7 +10,6 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.rikkei.training.activity.chatapp.R
 import com.rikkei.training.activity.chatapp.adapter.AddMessageAdapter
 import com.rikkei.training.activity.chatapp.databinding.FragmentCreateMessageBinding
@@ -25,7 +24,7 @@ class CreateMessageFragment(private val mainInterface: MainInterface) : Fragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         activity?.window?.statusBarColor =
         context?.let { ContextCompat.getColor(it, R.color.blue_start) }!!
@@ -40,7 +39,7 @@ class CreateMessageFragment(private val mainInterface: MainInterface) : Fragment
             Log.e("TAG", "User ${user.name}")
 
             viewModel.CreateNewMessage(user)
-            viewModel.liveDataConversation.observe(viewLifecycleOwner, Observer { conversation ->
+            viewModel.liveDataConversation.observe(viewLifecycleOwner, { conversation ->
                 val bundle = Bundle()
                 bundle.putSerializable("CONVERSATION", conversation)
                 val detail = DetailMessageFragment(mainInterface)
@@ -52,7 +51,7 @@ class CreateMessageFragment(private val mainInterface: MainInterface) : Fragment
                 }
             })
         }
-        viewModel.liveDataListFriend.observe(viewLifecycleOwner, Observer {
+        viewModel.liveDataListFriend.observe(viewLifecycleOwner, {
             Log.d("ListUser", "Create ${it}")
             adapterAddMessage.submitList(it)
         })

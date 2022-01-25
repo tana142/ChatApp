@@ -23,7 +23,7 @@ class EditProfileViewModel : ViewModel() {
     init {
         getInformationUser()
     }
-    fun getInformationUser(){
+    private fun getInformationUser(){
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 user.value = dataSnapshot.getValue<User>()
@@ -33,7 +33,7 @@ class EditProfileViewModel : ViewModel() {
                 // Getting User failed, log a message
             }
         }
-        var uid = FirebaseAuth.getInstance().uid
+        val uid = FirebaseAuth.getInstance().uid
         Log.e("TAG", "getInformationUser: uid:  $uid", )
         val refUser = FirebaseDatabase.getInstance()
             .reference

@@ -1,6 +1,5 @@
 package com.rikkei.training.activity.chatapp.view.fragment.message
 
-import android.R.attr
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,26 +10,17 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
 import com.rikkei.training.activity.chatapp.R
 import com.rikkei.training.activity.chatapp.adapter.ConversationMessageAdapter
 import com.rikkei.training.activity.chatapp.databinding.FragmentMessageBinding
 import com.rikkei.training.activity.chatapp.view.MainInterface
 import com.rikkei.training.activity.chatapp.viewmodel.message.MessageViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import android.R.attr.data
 import android.content.Context
-import android.content.res.Resources
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
-import androidx.core.widget.doOnTextChanged
 import com.rikkei.training.activity.chatapp.data.model.Conversation
 import java.util.*
-import kotlin.Comparator
-
 
 class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
 
@@ -41,7 +31,7 @@ class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         activity?.window?.statusBarColor =
             context?.let { ContextCompat.getColor(it, R.color.blue_start) }!!
@@ -89,11 +79,11 @@ class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
 
 
             Collections.sort(
-                it,
-                Comparator<Conversation> { oldItem, newItem ->
-                    if (oldItem.lastTime.toLong() > newItem.lastTime.toLong()) -1
-                    else if (oldItem.lastTime.toLong() < newItem.lastTime.toLong()) 1 else 0
-                })
+                it
+            ) { oldItem, newItem ->
+                if (oldItem.lastTime.toLong() > newItem.lastTime.toLong()) -1
+                else if (oldItem.lastTime.toLong() < newItem.lastTime.toLong()) 1 else 0
+            }
 
             userMessageAdapter.submitList(it)
             binding.rcvMessage.apply {

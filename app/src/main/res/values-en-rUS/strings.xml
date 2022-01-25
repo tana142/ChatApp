@@ -34,4 +34,7 @@
     <string name="cancel">Cancel</string>
     <string name="find_friend">Find friend</string>
     <string name="listFriend">List friend</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="permission_granted">Permission granted</string>
+    <string name="permission_denied">Permission denied</string>
 </resources>

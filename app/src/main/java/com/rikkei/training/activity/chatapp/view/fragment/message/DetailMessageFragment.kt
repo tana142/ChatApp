@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.rikkei.training.activity.chatapp.R
 import com.rikkei.training.activity.chatapp.adapter.DetailMessageAdapter
@@ -34,13 +33,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-//        activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-//        activity?.window?.statusBarColor =
-//            context?.let { ContextCompat.getColor(it, R.color.gray_detail_message) }!!
-//        // change status bar icon -> black
-//        activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+    ): View {
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         activity?.window?.statusBarColor = ContextCompat.getColor(activity!!, R.color.gray_detail_message)
         activity?.window?.setSoftInputMode(
@@ -48,7 +41,6 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
                     or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
         )
         mainInterface.hideNavigation()
-
 
         return binding.root
     }
@@ -110,7 +102,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
             }
         }
 
-        detailMessageViewModel.liveDataListContent.observe(viewLifecycleOwner, Observer {
+        detailMessageViewModel.liveDataListContent.observe(viewLifecycleOwner, {
             detailMessageAdapter.submitList(it)
             binding.rcvDetailMessage.apply {
                 adapter = detailMessageAdapter
@@ -151,7 +143,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         activity?.window?.statusBarColor =
             context?.let { ContextCompat.getColor(it, R.color.blue_start) }!!
-        activity?.window?.decorView?.setSystemUiVisibility(0);
+        activity?.window?.decorView?.systemUiVisibility = 0
         mainInterface.showNavigation()
     }
 
@@ -159,7 +151,7 @@ class DetailMessageFragment(private val mainInterface: MainInterface) : Fragment
         binding.rootDetail.viewTreeObserver.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                var rect = Rect()
+                val rect = Rect()
                 binding.rootDetail.getWindowVisibleDisplayFrame(rect)
                 val heightDiff = binding.rootDetail.rootView.height - rect.height()
                 if (heightDiff > .25 * binding.rootDetail.rootView.height) {
