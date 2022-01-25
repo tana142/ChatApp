@@ -137,34 +137,30 @@ class EditProfileFragment(private val mainInterface: MainInterface) : Fragment()
             imageUri = it.data?.data
             val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver!!, imageUri!!)
             val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             val bytes = stream.toByteArray()
-            baseImage = Base64.encodeToString(bytes, Base64.DEFAULT)
+            baseImage = Base64.encodeToString(bytes, Base64.DEFAULT);
             binding.imageAvatar.setImageBitmap(bitmap)
         }
     }
 
     private fun viewHide() {
-        binding.run {
-            imgBack.visibility = View.GONE
-            tvLabelEdit.visibility = View.GONE
-            tvSave.visibility = View.GONE
-            viewBackground.visibility = View.GONE
-        }
+        binding.imgBack.visibility = View.GONE
+        binding.tvLabelEdit.visibility = View.GONE
+        binding.tvSave.visibility = View.GONE
+        binding.viewBackground.visibility = View.GONE
     }
 
     private fun viewShow() {
-        binding.run {
-            imgBack.visibility = View.VISIBLE
-            tvLabelEdit.visibility = View.VISIBLE
-            tvSave.visibility = View.VISIBLE
-            viewBackground.visibility = View.VISIBLE
-        }
+        binding.imgBack.visibility = View.VISIBLE
+        binding.tvLabelEdit.visibility = View.VISIBLE
+        binding.tvSave.visibility = View.VISIBLE
+        binding.viewBackground.visibility = View.VISIBLE
     }
 
     private fun CheckKeyBoard() {
         binding.rootEdit.viewTreeObserver.addOnGlobalLayoutListener {
-            val rect = Rect()
+            var rect = Rect()
             binding.rootEdit.getWindowVisibleDisplayFrame(rect)
             val heightDiff = binding.rootEdit.rootView.height - rect.height()
             if (heightDiff > .25 * binding.rootEdit.rootView.height) {

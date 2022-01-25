@@ -3,6 +3,7 @@ package com.rikkei.training.activity.chatapp.viewmodel.message
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -27,17 +28,13 @@ class CreateMessageViewModel : ViewModel() {
     val ref = Firebase.database.reference
     val listFriend = mutableListOf<User>()
 
-    init {
-        getFID()
-    }
 
-    private fun getFID() {
+    fun getFID() {
+        listFriend.clear()
         ref.child("friends")
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    snapshot.children.forEach { dataSnapshot ->
-                        val friend = dataSnapshot.getValue<Friend>()
-
+            .addChildEventListener(object : ChildEventListener{
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    val friend = snapshot.getValue<Friend>()
                         if (friend?.status == true) {
                             if (friend.senderid == uid) {
                                 getUser(friend.receiverid)
@@ -45,27 +42,98 @@ class CreateMessageViewModel : ViewModel() {
                                 getUser(friend.senderid)
                             }
                         }
-                    }
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+//                    val friend = snapshot.getValue<Friend>()
+//                    if (friend?.status == true) {
+//                        if (friend.senderid == uid) {
+//                            getUser(friend.receiverid)
+//                        } else if (friend.receiverid == uid) {
+//                            getUser(friend.senderid)
+//                        }
+//                    }
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+
                 }
+
             })
+//            .addValueEventListener(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    snapshot.children.forEach { dataSnapshot ->
+//                        val friend = dataSnapshot.getValue<Friend>()
+//
+//                        if (friend?.status == true) {
+//                            if (friend.senderid == uid) {
+//                                getUser(friend.receiverid)
+//                            } else if (friend.receiverid == uid) {
+//                                getUser(friend.senderid)
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                }
+//            })
     }
 
     private fun getUser(id: String) {
-        ref.child("users").child(id)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
+        ref.child("users")
+
+            .addChildEventListener(object: ChildEventListener{
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     snapshot.getValue<User>()?.apply {
-                        listFriend.add(this)
-                        liveDataListFriend.value = listFriend
+                        if(this.uid == id){
+                            listFriend.add(this)
+                            liveDataListFriend.value = listFriend
+                        }
+
                     }
                 }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+//                    snapshot.getValue<User>()?.apply {
+//                        if(this.uid == id){
+//                            listFriend.add(this)
+//                            liveDataListFriend.value = listFriend
+//                        }
+//
+//                    }
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+                }
+
                 override fun onCancelled(error: DatabaseError) {
+
                 }
             })
+//            .addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    snapshot.getValue<User>()?.apply {
+//                        listFriend.add(this)
+//                        liveDataListFriend.value = listFriend
+//                    }
+//                }
+//                override fun onCancelled(error: DatabaseError) {
+//                }
+//            })
     }
 
 //    fun checkMessage(newUser: User) {

@@ -75,9 +75,6 @@ class MessageFragment(private val mainInterface: MainInterface) : Fragment() {
             visibility = View.VISIBLE
         }
         messageViewModel.liveDataListConversation.observe(this, {
-
-
-
             Collections.sort(
                 it
             ) { oldItem, newItem ->

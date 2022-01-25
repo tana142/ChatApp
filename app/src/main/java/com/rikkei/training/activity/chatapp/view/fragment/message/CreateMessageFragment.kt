@@ -29,6 +29,7 @@ class CreateMessageFragment(private val mainInterface: MainInterface) : Fragment
         activity?.window?.statusBarColor =
         context?.let { ContextCompat.getColor(it, R.color.blue_start) }!!
         mainInterface.hideNavigation()
+        viewModel.getFID()
         return binding.root
     }
 
@@ -52,15 +53,15 @@ class CreateMessageFragment(private val mainInterface: MainInterface) : Fragment
             })
         }
         viewModel.liveDataListFriend.observe(viewLifecycleOwner, {
-            Log.d("ListUser", "Create ${it}")
             adapterAddMessage.submitList(it)
-        })
-
-        binding.run {
-            rcvListFriend.apply {
+            binding.rcvListFriend.apply {
                 adapter = adapterAddMessage
                 visibility = View.VISIBLE
             }
+        })
+
+        binding.run {
+
             tvCancel.setOnClickListener {
                 parentFragmentManager.popBackStack()
                 mainInterface.showNavigation()
