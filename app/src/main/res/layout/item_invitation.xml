@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp">
+
+        <ImageView
+            android:id="@+id/img_user"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/bg_item_message"
+            android:scaleType="center"
+            android:src="@drawable/ic_avatar_user_default_while_large_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/img_invitationfriend"
+            app:layout_constraintLeft_toLeftOf="@+id/img_invitationfriend"
+            app:layout_constraintRight_toRightOf="@+id/img_invitationfriend"
+            app:layout_constraintTop_toTopOf="@+id/img_invitationfriend" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_invitationfriend"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_item_message"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/lato_black"
+            android:text="Hai Anh"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@id/img_invitationfriend"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_invit"
+            android:layout_width="73dp"
+            android:layout_height="27dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_makefriend"
+            android:text="Đồng ý"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
