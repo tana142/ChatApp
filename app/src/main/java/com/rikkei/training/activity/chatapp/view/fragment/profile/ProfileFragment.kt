@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.rikkei.training.activity.chatapp.R
 import com.rikkei.training.activity.chatapp.databinding.FragmentProfileBinding
 import com.rikkei.training.activity.chatapp.view.MainInterface
+import com.rikkei.training.activity.chatapp.view.fragment.login.LoginFragment
 import com.rikkei.training.activity.chatapp.viewmodel.profile.ProfileViewModel
 
 class ProfileFragment(private val mainInterface: MainInterface) : Fragment() {
@@ -46,6 +47,12 @@ class ProfileFragment(private val mainInterface: MainInterface) : Fragment() {
             parentFragmentManager.commit {
                 replace(R.id.container_view, EditProfileFragment.Instance(mainInterface))
                 addToBackStack("Edit")
+            }
+        }
+        binding.imageLogout.setOnClickListener {
+            parentFragmentManager.commit {
+                replace(R.id.container_view,LoginFragment.Instance(mainInterface))
+                FirebaseAuth.getInstance().signOut()
             }
         }
 //        binding

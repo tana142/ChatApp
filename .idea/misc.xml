@@ -3,6 +3,34 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ChatApp/app/src/main/res/drawable-v24/bg_splash.xml" value="0.109375" />
+        <entry key="..\:/ChatApp/app/src/main/res/drawable-v24/buttoncancel.xml" value="0.1" />
+        <entry key="..\:/ChatApp/app/src/main/res/drawable/backgroudlogin.xml" value="0.109375" />
+        <entry key="..\:/ChatApp/app/src/main/res/drawable/background_makefriend.xml" value="0.109375" />
+        <entry key="..\:/ChatApp/app/src/main/res/drawable/bg_bottom_navigation.xml" value="0.109375" />
+        <entry key="..\:/ChatApp/app/src/main/res/drawable/bg_item_message.xml" value="0.2123076923076923" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/dialog_edit_profile.xml" value="0.1" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_all_friend.xml" value="0.2" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_create_message.xml" value="0.13451086956521738" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_detail_message.xml" value="0.1" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_edit_profile.xml" value="0.1911231884057971" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_friend.xml" value="0.22" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_list_friend.xml" value="0.13451086956521738" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_message.xml" value="0.10099637681159421" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_request.xml" value="0.13043478260869565" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/fragment_request_friend.xml" value="0.22" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/item_Invitation.xml" value="0.1" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/item_allfriend.xml" value="0.25" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/item_detail_message.xml" value="0.15" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/item_friend.xml" value="0.10677083333333333" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/item_invitation.xml" value="0.10677083333333333" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/item_message.xml" value="0.3277777777777778" />
+        <entry key="..\:/ChatApp/app/src/main/res/layout/item_requested.xml" value="0.1" />
+        <entry key="..\:/ChatApp/app/src/main/res/menu/item_navigation.xml" value="0.19947916666666668" />
+        <entry key="..\:/ChatApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.12291666666666666" />
         <entry key="..\:/Users/TanBD_TT/AndroidStudioProjects/ChatApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/TanBD_TT/AndroidStudioProjects/app/src/main/res/drawable/bg_bottom_navigation.xml" value="0.2759259259259259" />
         <entry key="..\:/Users/TanBD_TT/AndroidStudioProjects/app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -21,7 +49,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
